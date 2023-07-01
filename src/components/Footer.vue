@@ -6,9 +6,7 @@
 </template>
 
 <style scoped>
-h1{
-  margin: 30px;
-}
+
 @media (min-width: 1024px) {
 
 }

@@ -1,4 +1,5 @@
 <template>
+  <div class="sign">
   <div class="register-container">
     <h2 class="register-title">Register</h2>
     <form @submit="register" class="register-form">
@@ -9,6 +10,7 @@
     </form>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
+</div>
 </template>
 
 <script>
@@ -45,13 +47,20 @@ export default {
 </script>
 
 <style>
+.sign{
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  background-color: #333;
+}
+
 .register-container {
 
-  max-width: 400px;
-  
+  /* min-width: 40%; */
+  width: 25%;
   margin: 0 auto;
   padding: 20px;
-  //background-color: #f5f5f5;
+  background-color: #f5f5f5;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

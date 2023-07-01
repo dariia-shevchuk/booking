@@ -1,4 +1,5 @@
 <template>
+  <div class="logincont">
   <div class="login-container">
     <h2>Login</h2>
     <form @submit="login" class="login-form">
@@ -8,6 +9,7 @@
     </form>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
+</div>
 </template>
 
 <script>
@@ -42,16 +44,27 @@ export default {
 </script>
 
 <style>
+.logincont{
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  /* background-color: #333; */
+}
+
 .login-container {
-  max-width: 400px;
+  width: 25%;
   margin: 0 auto;
   padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  font-size: 24px;
 }
 
 .login-form {
@@ -61,18 +74,21 @@ h2 {
 
 input {
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #4682B4;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
@@ -82,5 +98,6 @@ button:hover {
 .error-message {
   color: red;
   text-align: center;
+  font-size: 14px;
 }
 </style>
