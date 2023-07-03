@@ -26,22 +26,31 @@ export default {
     }
   },
   methods: {
-    register(event) {
-      event.preventDefault()
-      axios.post('/api/register', {
-        username: this.username,
-        email: this.email,
-        password: this.password
-      })
-      .then(response => {
-        console.log('Registration successful:', response.data)
-        this.$router.push('/login')
-      })
-      .catch(error => {
-        this.errorMessage = 'Registration failed. Please try again.'
-        console.error(error)
-      })
+  async register() {
+   // Provide the email parameter
+    const res = 'true';
+    try {
+      const response = await axios.get(`http://localhost:3000/users/${this.email}`);
+      if(response.data['response'] === "false"){
+        try {
+          const response = await axios.post('http://localhost:3000/users', {
+            // Request payload or data
+            name: this.username,
+            email: this.email,
+            password: this.password,
+          });
+          console.log(response.data); // Handle the response
+        } catch (error) {
+          console.error(error); // Handle any error
+        }
+      }else{
+        this.errorMessage = "Such user exists";
+      }
+    } catch (error) {
+      console.error(error); // Handle any error
     }
+    
+    },
   }
 }
 </script>
