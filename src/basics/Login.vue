@@ -1,7 +1,7 @@
 <template>
   <div class="logincont">
   <div class="login-container">
-    <h2>Login</h2>
+    <h2>Log in to your account</h2>
     <form @submit="login" class="login-form">
       <input type="text" v-model="username" placeholder="Username/Email" required>
       <input type="password" v-model="password" placeholder="Password" required>
@@ -55,16 +55,20 @@ export default {
   width: 25%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
   font-size: 24px;
+  color: #000;
+  font-family: Inria Serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .login-form {
@@ -75,8 +79,9 @@ h2 {
 input {
   margin-bottom: 10px;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #FFF;
   font-size: 16px;
 }
 
@@ -89,10 +94,13 @@ button {
   border-radius: 4px;
   font-size: 16px;
   transition: background-color 0.3s;
+  border-radius: 3px;
+  border: 1px solid #683434;
+  background: #683434;
 }
 
 button:hover {
-  background-color: #21637F;
+  background: #884444;
 }
 
 .error-message {

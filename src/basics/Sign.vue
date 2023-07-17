@@ -60,7 +60,6 @@ export default {
   height: 65vh;
   display: flex;
   align-items: center;
-  background-color: #333;
 }
 
 .register-container {
@@ -69,9 +68,9 @@ export default {
   width: 25%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .register-title {
@@ -89,8 +88,9 @@ export default {
 .register-input {
   margin-bottom: 10px;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #FFF;
   font-size: 16px;
 }
 
@@ -103,10 +103,13 @@ export default {
   border-radius: 4px;
   font-size: 16px;
   transition: background-color 0.3s;
+  border-radius: 3px;
+  border: 1px solid #683434;
+  background: #683434;
 }
 
 .register-button:hover {
-  background-color: #21637F;
+  background: #884444;
 }
 
 .error-message {

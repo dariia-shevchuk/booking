@@ -6,6 +6,13 @@ import Home from './basics/Home.vue'
 import Login from './basics/Login.vue'
 import Sign from './basics/Sign.vue'
 import Profile from './basics/Profile.vue'
+import Dropdown from 'vue-simple-search-dropdown';
+// import VueCookies from 'vue-cookies'
+// Vue.use(VueCookies)
+// this.$cookies.set('cookieName', 'cookieValue')
+// this.$cookies.set('cookieName', 'cookieValue', { expires: 7, path: '/' })
+// const cookieValue = this.$cookies.get('cookieName')
+// this.$cookies.remove('cookieName')
 
 
 const routes = {
@@ -45,16 +52,17 @@ const currentView = computed(() => {
   height: 100%;
 }
 .header{
+  
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 10%;
-  background: rgb(70, 145, 168);
+  background: #683434;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
-  /* width: 100%; */
+  /* width: 100%;  */
 }
 .footer{
   display: block;
@@ -63,8 +71,8 @@ const currentView = computed(() => {
   padding-right: 5%;
   padding-bottom: 30px;
   width: 100%;
-  height: 25%;
-  background: rgb(1, 99, 210);
+  height: 20%;
+  background: rgb(107, 58, 58);
   /* width: 100%; */
 }
 .app{
@@ -74,8 +82,8 @@ const currentView = computed(() => {
   /* margin-top: 10%; */
   margin-top: 10vh;
   margin-bottom: 0;
-  min-height: 65%;
+  min-height: 70%;
   overflow-y: auto;
-  background: white;
+  background: rgb(255, 255, 255);
   }
 </style>

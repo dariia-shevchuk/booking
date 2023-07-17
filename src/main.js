@@ -2,7 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-
+import Dropdown from 'vue-simple-search-dropdown';
 // import DayJsAdapter from '@date-io/dayjs'
 
 // createVuetify({
@@ -24,6 +24,7 @@ import App from './App.vue'
 //     },
 //   },
 // })
-
-createApp(App).mount('#app')
+var app = createApp(App);
+app.use(Dropdown);
+app.mount('#app')
 

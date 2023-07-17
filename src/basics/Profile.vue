@@ -1,39 +1,66 @@
 <template>
   <div>
-    <h1>User Details</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="user">
-      <p>Name: {{ user.name }}</p>
-      <p>Email: {{ user.email }}</p>
-    </div>
-    <div v-else>
-      User not found.
-    </div>
+    <input type="text" v-model="city" @input="filterOptions" placeholder="Search...">
+    <ul :class="['options-list', { 'show-list': city !== '' }]">
+      <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)">{{ option }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import cities from './cities.json';
+  export default {
+    data() {
+      return {
+        city: '',
+        options: cities,
+        selectedOption: null
+      };
+    },
+    computed: {
+      filteredOptions() {
+        if (!this.city) {
+          return [];
+        }
 
-export default {
-  data() {
-    return {
-      loading: true,
-      user: null,
-    };
-  },
-  mounted() {
-    const email = 'theos.fa@gmail.com'; // Provide the email parameter
-
-    axios.get(`http://localhost:3000/users/${email}`)
-      .then(response => {
-        this.loading = false;
-        this.user = response.data;
-      })
-      .catch(error => {
-        this.loading = false;
-        console.error(error);
-      });
-  },
-};
+        const searchRegex = new RegExp(this.city, 'i');
+        return this.options.filter(option => searchRegex.test(option) && option !== this.selectedOption);
+      }
+    },
+    methods: {
+      selectOption(option) {
+        this.selectedOption = option;
+        this.city = option;
+        this.$nextTick(() => {
+          const ulElement = document.querySelector('.options-list');
+          ulElement.classList.remove('show-list');
+        });
+        console.log(this.selectedOption);
+      }
+    }
+  };
 </script>
+
+
+<style>
+.options-list {
+  list-style-type: none;
+  padding: 0;
+  max-height: 200px; /* Set the maximum height for the list */
+  overflow-y: auto; /* Enable vertical scrolling when the list exceeds the maximum height */
+  position: absolute; /* Set the position to absolute */
+  margin: 0;
+  width: 200px !important;
+  z-index: 999; /* Set a high z-index to make the list appear above other elements */
+}
+
+.options-list.show-list {
+  display: block; /* Show the list when this class is applied */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 4px; /* Add border radius for rounded corners */
+}
+li{
+  display: block;
+  cursor: pointer;
+}
+</style>
