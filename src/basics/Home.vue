@@ -1,5 +1,6 @@
 <script setup>
 import ListHome from '../components/ListHome.vue';
+
 </script>
 
 <template>
@@ -60,7 +61,22 @@ import ListHome from '../components/ListHome.vue';
                 
             </div> 
             <div class="list">
-                <ListHome/>
+              <div v-if="!dataToTransfer">
+                No data available.
+              </div>
+              <div v-else>
+                <div class="item2" v-for="info in dataToTransfer" :key="info.id">
+                  <div class="img">Img</div>
+                  <div class="data">
+                    <div class="name">Hotel ID: {{ info.hotel_id }}</div>
+                    <div class="location">Max Guests: {{ info.maxGuests }}</div>
+                    <div class="location">Number of Beds: {{ info.bed }}</div>
+                  </div>
+                  <div class="price">
+                    <div>Price: {{ info.price }}</div>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
 
@@ -77,7 +93,8 @@ export default {
         city: '',
         options: cities,
         selectedOption: null,
-        dataFromHome: 'Hello From Home'
+        dataFromHome: 'Hello From Home',
+        dataToTransfer: null,
       };
     },
     computed: {
@@ -102,13 +119,10 @@ export default {
       },
       async search(){
         try {
-            const response = await axios.get(`http://localhost:3000/rooms/`, {
-            // Request payload or data
-            city: this.city,
-            arrivalDate: this.arrivalDate,
-            departureDate: this.departureDate,
-            numberOfPeople: this.numberOfPeople,
-          });
+            const response = await axios.get(`http://localhost:3000/rooms/${this.city}/${this.numberOfPeople}`);
+            console.log(response["data"])
+            this.dataToTransfer = response["data"];
+            
         } catch (error) {
             console.error(error); // Handle any error
         }
@@ -331,6 +345,62 @@ li{
 
 .end{
     border-radius: 0px 12px 12px 0px;
+}
+
+.container{
+    display: flex;
+    flex-flow : column nowrap;
+    align-items: center;
+}
+.item{
+    width: 80%;
+}
+.item2{
+    border-radius: 12px;
+    border: 1px solid #606060;
+    display: flex;
+    flex-flow : row nowrap;
+    padding: 7px;
+    margin: 5px;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    height: 150px;
+}
+
+.img{
+    display: flex;
+    width: 100px;
+    background: grey;
+    margin-right: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+.name{
+    color: #683434;
+    /* text-align: center; */
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.location{
+    color: #000;
+    font-family: Inria Serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.price{
+    flex-grow: 1;
+}
+.data{
+    display: flex;
+    flex-flow : column nowrap;
+    flex-grow: 1;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 </style>
 

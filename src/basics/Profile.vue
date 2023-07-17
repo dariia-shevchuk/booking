@@ -1,19 +1,19 @@
 <template>
   <div>
-    <input type="text" v-model="city" @input="filterOptions" placeholder="Search...">
-    <ul :class="['options-list', { 'show-list': city !== '' }]">
-      <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)">{{ option }}</li>
-    </ul>
+    <button @click="pushHotels">Push Hotels</button>
+    <button @click="pushRooms">Push Rooms</button>
   </div>
 </template>
 
 <script>
-import cities from './cities.json';
+import hotels from '../json/hotels.json';
+import axios from 'axios';
+
   export default {
     data() {
       return {
         city: '',
-        options: cities,
+        options: hotels,
         selectedOption: null
       };
     },
@@ -28,15 +28,68 @@ import cities from './cities.json';
       }
     },
     methods: {
-      selectOption(option) {
-        this.selectedOption = option;
-        this.city = option;
-        this.$nextTick(() => {
-          const ulElement = document.querySelector('.options-list');
-          ulElement.classList.remove('show-list');
-        });
-        console.log(this.selectedOption);
-      }
+      async pushHotels(){
+        try {
+          const promises = hotels.map(async (element) => {
+            console.log(element);
+            try {
+              const response = await axios.post('http://localhost:3000/hotels/', {
+                // Request payload or data
+                hotel_id: element["id"],
+                name: element["name"],
+                city: element["location"]["city"],
+                stars: element["stars"],
+              });
+              console.log(response.data); // Handle the response
+            } catch (error) {
+              console.error(error); // Handle any error
+            }
+          });
+          await Promise.all(promises);
+          console.log('All requests completed.'); // This will be printed after all requests are finished
+        } catch (error) {
+          console.error('Error in postHotelsToServer:', error);
+        }
+      },
+      async pushRooms() {
+        try {
+          const promises = hotels.map(async (element) => {
+            const roomPromises = element["rooms"].map(async (rooms) => {
+              // console.log(rooms);
+              try {
+                const response = await axios.post('http://localhost:3000/rooms/', {
+                  // Request payload or data
+                  hotel_id: element["id"],
+                  price: rooms["price"],
+                  maxGuests: rooms["maxGuests"],
+                  bed: rooms["beds"],
+                  availability: rooms["available"],
+                });
+                console.log(response.data); // Handle the response
+              } catch (error) {
+                console.error(error); // Handle any error
+              }
+            });
+            return Promise.all(roomPromises);
+          });
+
+          // Wait for all hotel promises to resolve
+          await Promise.all(promises);
+
+          console.log('All requests completed.'); // This will be printed after all requests are finished
+        } catch (error) {
+          console.error('Error in pushRooms:', error);
+        }
+      },
+      // selectOption(option) {
+      //   this.selectedOption = option;
+      //   this.city = option;
+      //   this.$nextTick(() => {
+      //     const ulElement = document.querySelector('.options-list');
+      //     ulElement.classList.remove('show-list');
+      //   });
+      //   console.log(this.selectedOption);
+      // }
     }
   };
 </script>

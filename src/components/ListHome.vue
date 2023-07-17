@@ -1,8 +1,8 @@
 <template>
-    <div class="data-from-home">{{ dataFromHome }}</div>
+    <div class="data-from-home">{{ dataToTransfer }}</div>
     <div class="container">
-        <div class="item" v-for="data in myJson">
-        <div class="item2" v-for="info in data['rooms']">
+        <div class="item" v-for="data in dataToTransfer">
+        <div class="item2" v-for="info in dataToTransfer">
             <div class="img">Img</div>
             <div class="data">
                 <div class="name">{{data["name"]}}</div>
@@ -18,19 +18,14 @@
 
 <script>
 
-import { VueElement } from 'vue';
-import json from '../json/hotels.json'
-//import FromPicker from './components/FormPicker.vue'
-
 
 export default{
-          data(){
-              return{
-                  myJson: json,  
-                //   picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-                //   picker2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-                }
-            }
+    props: {
+        dataToTransfer: {
+            type: Array, // Adjust the data type accordingly based on your data structure
+            required: true
+        }
+    }
 }
 
 </script>
