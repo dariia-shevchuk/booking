@@ -51,7 +51,7 @@ import ListHome from '../components/ListHome.vue';
                         
                     </div>
 
-                    <button type="submit" class="search-button">Search</button>
+                    <button type="submit" class="search-button" @click="search2">Search</button>
                 </div>
 
                 
@@ -68,9 +68,10 @@ import ListHome from '../components/ListHome.vue';
                 <div class="item2" v-for="info in dataToTransfer" :key="info.id">
                   <div class="img">Img</div>
                   <div class="data">
-                    <div class="name">Hotel ID: {{ info.hotel_id }}</div>
+                    <div class="name">Hotel name: {{ info.Hotel["name"] }}</div>
                     <div class="location">Max Guests: {{ info.maxGuests }}</div>
                     <div class="location">Number of Beds: {{ info.bed }}</div>
+                    <div class="stars">Stars: {{ info.Hotel["stars"] }}</div>
                   </div>
                   <div class="price">
                     <div>Price: {{ info.price }}</div>
@@ -116,6 +117,33 @@ export default {
           ulElement.classList.remove('show-list');
         });
         console.log(this.selectedOption);
+      },
+      async search2() {
+        var dataResponse;
+        try {
+          const queryParams = {
+            city: this.city,
+            numberOfPeople: this.numberOfPeople,
+            minPrice: this.minPrice,
+            maxPrice: this.maxPrice,
+            numberOfStars: this.numberOfStars,
+            availabilityOfBreakfast: this.availabilityOfBreakfast,
+            // availabilityOfParking: this.availabilityOfParking
+          };
+
+          const queryString = Object.keys(queryParams)
+            .filter((key) => queryParams[key] !== undefined)
+            .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(queryParams[key]))
+            .join('&');
+
+          const response = await axios.get(`http://localhost:3000/rooms?${queryString}`);
+          console.log(response["data"]);
+          this.dataToTransfer = response["data"];
+          dataResponse = response["data"];
+        } catch (error) {
+          console.error(error); // Handle any error
+        }
+        return dataResponse;
       },
       async search(){
         try {

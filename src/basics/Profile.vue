@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="pushHotels">Push Hotels</button>
-    <button @click="pushRooms">Push Rooms</button>
+    <!-- <button @click="pushHotels">Push Hotels</button>
+    <button @click="pushRooms">Push Rooms</button> -->
   </div>
 </template>
 
@@ -63,6 +63,8 @@ import axios from 'axios';
                   price: rooms["price"],
                   maxGuests: rooms["maxGuests"],
                   bed: rooms["beds"],
+                  availabilityOfBreakfast: rooms["breakfast"],
+                  // availabilityOfParking: room["availabilityOfParking"],
                   availability: rooms["available"],
                 });
                 console.log(response.data); // Handle the response
