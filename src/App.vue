@@ -71,7 +71,9 @@ const currentView = computed(() => {
   padding-right: 5%;
   padding-bottom: 30px;
   width: 100%;
-  height: 20%;
+  height: 19%;
+  color: white;
+  margin-top: 1%;
   background: rgb(107, 58, 58);
   /* width: 100%; */
 }

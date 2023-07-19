@@ -60,11 +60,11 @@ import ListHome from '../components/ListHome.vue';
 
                 
             </div> 
-            <div class="list">
+            <div class="list container">
               <div v-if="!dataToTransfer">
                 No data available.
               </div>
-              <div v-else>
+              <div v-else class="item">
                 <div class="item2" v-for="info in dataToTransfer" :key="info.id">
                   <div class="img">Img</div>
                   <div class="data">
@@ -378,10 +378,10 @@ li{
 .container{
     display: flex;
     flex-flow : column nowrap;
-    align-items: center;
+    align-items: flex-end;
 }
 .item{
-    width: 80%;
+    width: 90%;
 }
 .item2{
     border-radius: 12px;
