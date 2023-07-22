@@ -23,3 +23,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+To add data to database in profile page uncomment two buttons that will add info from hotel.json file
