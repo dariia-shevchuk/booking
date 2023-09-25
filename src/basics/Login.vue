@@ -24,20 +24,17 @@ export default {
     }
   },
   methods: {
-    login(event) {
-      event.preventDefault()
-      axios.post('/api/login', {
-        username: this.username,
-        password: this.password
-      })
-      .then(response => {
-        localStorage.setItem('token', response.data.token)
-        this.$router.push('/dashboard')
-      })
-      .catch(error => {
-        this.errorMessage = 'Invalid username/email or password'
-        console.error(error)
-      })
+    async login(event) {
+      try {
+          const response = await axios.get('http://localhost:3000/users/check-password', {
+            // Request payload or data
+            nameOrEmail: this.username,
+            password: this.password,
+          });
+          console.log(response.data); // Handle the response
+        } catch (error) {
+          console.error(error); // Handle any error
+        }
     }
   }
 }

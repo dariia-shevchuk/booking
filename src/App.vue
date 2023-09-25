@@ -3,6 +3,7 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import { ref, computed } from 'vue'
 import Home from './basics/Home.vue'
+import Houses from './basics/Houses.vue'
 import Login from './basics/Login.vue'
 import Sign from './basics/Sign.vue'
 import Profile from './basics/Profile.vue'
@@ -17,6 +18,7 @@ import Dropdown from 'vue-simple-search-dropdown';
 
 const routes = {
   '/': Home,
+  '/houses': Houses,
   '/login': Login,
   '/sign': Sign,
   '/profile': Profile
@@ -87,5 +89,6 @@ const currentView = computed(() => {
   min-height: 70%;
   overflow-y: auto;
   background: rgb(255, 255, 255);
+  /* background: rgb(70, 77, 109); */
   }
 </style>

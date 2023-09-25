@@ -7,6 +7,10 @@
   <button class="but" OnClick=" location.href='/' ">Home</button>
   </div>
   <div class="nav">
+  <!-- <a href="/">Home</a> -->
+  <button class="but" OnClick=" location.href='#/houses' ">Houses</button>
+  </div>
+  <div class="nav">
     <!-- <a href="#/login">Login</a> -->
     <button class="but" OnClick=" location.href='#/login' ">Login</button>
   </div>
@@ -17,6 +21,9 @@
   <div class="nav profile">
      <!-- <a href="#/profile">Profile</a> -->
      <button class="but" OnClick=" location.href='#/profile' ">Profile</button>
+  </div>
+  <div class="nav light">
+    <button class="but" >Dark</button>
   </div>
 </template>
 

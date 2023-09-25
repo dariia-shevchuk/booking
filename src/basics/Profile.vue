@@ -1,7 +1,26 @@
 <template>
   <div>
-    <!-- <button @click="pushHotels">Push Hotels</button>
-    <button @click="pushRooms">Push Rooms</button> -->
+    <!-- <button @click="pushHotels">Push Hotels</button> -->
+
+    <!-- <button @click="pushRooms">Push Rooms</button> -->
+
+    <!-- <input type="text" placeholder="ID" v-model="house_id">
+    <input type="text" placeholder="Name" v-model="name">
+    <input type="text" placeholder="Price" v-model="price">
+    <input type="text" placeholder="City" v-model="city">
+    <input type="text" placeholder="maxGuests" v-model="maxGuests">
+    <input type="text" placeholder="Availability" v-model="availability">
+    <button @click="pushHouses">Push Houses</button> -->
+
+
+    <input type="text" placeholder="ID" v-model="house_id">
+    <input type="text" placeholder="Name" v-model="name">
+    <input type="text" placeholder="Price" v-model="price">
+    <input type="text" placeholder="Price type" v-model="price_type">
+    <input type="text" placeholder="Stock" v-model="stock">
+    <input type="text" placeholder="maxGuests" v-model="maxGuests">
+    <input type="text" placeholder="Availability" v-model="availability">
+    <button @click="pushAttractions">Push Attractions</button>
   </div>
 </template>
 
@@ -83,15 +102,40 @@ import axios from 'axios';
           console.error('Error in pushRooms:', error);
         }
       },
-      // selectOption(option) {
-      //   this.selectedOption = option;
-      //   this.city = option;
-      //   this.$nextTick(() => {
-      //     const ulElement = document.querySelector('.options-list');
-      //     ulElement.classList.remove('show-list');
-      //   });
-      //   console.log(this.selectedOption);
-      // }
+      async pushHouses() {
+        try {
+          console.log(this.house_id)
+          const response = await axios.post('http://localhost:3000/houses/', {
+            // Request payload or data
+            house_id: this.house_id,
+            name: this.name,
+            price: this.price,
+            city: this.city,
+            maxGuests: this.maxGuests,
+            availability: this.availability,
+          });
+          console.log(response.data); // Handle the response
+        } catch (error) {
+          console.error(error); // Handle any error
+        }
+      },
+      async pushAttractions() {
+        try {
+          const response = await axios.post('http://localhost:3000/attract/', {
+            // Request payload or data
+            house_id: this.house_id,
+            name: this.name,
+            price: this.price,
+            price_type: this.price_type,
+            stock: this.stock,
+            maxGuests: this.maxGuests,
+            availability: this.availability,
+          });
+          console.log(response.data); // Handle the response
+        } catch (error) {
+          console.error(error); // Handle any error
+        }
+      },
     }
   };
 </script>

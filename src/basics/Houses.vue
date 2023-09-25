@@ -7,7 +7,7 @@ import ListHome from '../components/ListHome.vue';
     <div class="main">
 
         <div class="top">
-          <h1>HOTELS</h1>
+            <h1>HOUSES</h1>
             <div class="search">
                 <!-- <input type="text" v-model="city" placeholder="City" class="register-input one" required> -->
                 <div>
@@ -21,11 +21,6 @@ import ListHome from '../components/ListHome.vue';
                 <input type="number" v-model="numberOfPeople" placeholder="Number of people" class="register-input end" required>
                 <button type="submit" @click="search" class="search-button-main">Search</button>
             </div>
-            <div class="houses-check"> 
-              <input type="checkbox" v-model="houses" value="0" />
-              <label for="price">Houses</label>
-            </div>
-             
         </div>
 
         <div class="bottom">
@@ -70,34 +65,14 @@ import ListHome from '../components/ListHome.vue';
               <div v-if="!dataToTransfer">
                 No data available.
               </div>
-              <div v-if="showInfo" class="item">
+              <div v-else class="item">
                 <div class="item2" v-for="info in dataToTransfer" :key="info.id">
                   <div class="img">Img</div>
                   <div class="data">
                     <div class="name">Hotel name: {{ info.Hotel["name"] }}</div>
                     <div class="location">Max Guests: {{ info.maxGuests }}</div>
                     <div class="location">Number of Beds: {{ info.bed }}</div>
-                    <div class="stars">Stars: {{ info.stars }}</div>
-                    <!-- <div class="stars">Stars: {{ info.Hotel["stars"] }}</div> -->
-                  </div>
-                  <div class="price">
-                    <div>Price: {{ info.price }}</div>
-                  </div>
-                </div>
-              </div>
-              <div v-if="!showInfo" class="item">
-                <div class="item2" v-for="info in dataToTransfer" :key="info.id">
-                  <div class="img">Img</div>
-                  <div class="data">
-                    <div class="name">House name: {{ info.name }}</div>
-                    <div class="location">Max Guests: {{ info.maxGuests }}</div>
-                    Attractions
-                    <!-- <div class="stars">Stars: {{ info.Hotel["stars"] }}</div> -->
-                    <div class="attractions" v-for="attraction in attractions[info.id]">
-                      Name : {{ attraction.name }},
-                      Price : {{ attraction.price }},
-                      Availability : {{ attraction.availability }}
-                    </div>
+                    <div class="stars">Stars: {{ info.Hotel["stars"] }}</div>
                   </div>
                   <div class="price">
                     <div>Price: {{ info.price }}</div>
@@ -122,9 +97,6 @@ export default {
         selectedOption: null,
         dataFromHome: 'Hello From Home',
         dataToTransfer: null,
-        attractions: {},
-        houses: this.houses,
-        showInfo: 1,
       };
     },
     computed: {
@@ -175,34 +147,13 @@ export default {
         return dataResponse;
       },
       async search(){
-        if  (!this.houses){
-          try {
+        try {
             const response = await axios.get(`http://localhost:3000/rooms/${this.city}/${this.numberOfPeople}`);
             console.log(response["data"])
             this.dataToTransfer = response["data"];
-          } catch (error) {
-              console.error(error); // Handle any error
-          }
-          this.showInfo = 1;
-        } else{
-          try {
-            const response = await axios.get(`http://localhost:3000/houses/${this.city}/${this.numberOfPeople}`);
-            console.log(response["data"])
-            this.dataToTransfer = response["data"];
-          } catch (error) {
-              console.error(error); // Handle any error
-          }
-          this.dataToTransfer.forEach( async (item) => {
-            try {
-              const response = await axios.get(`http://localhost:3000/attract/${item.id}`);
-              console.log(response["data"])
-              this.attractions[item.id] = response["data"];
-            } catch (error) {
-                console.error(error); // Handle any error
-            }
-          });
-            console.log(this.attractions)
-          this.showInfo = 0;
+            
+        } catch (error) {
+            console.error(error); // Handle any error
         }
       }
     }
@@ -263,12 +214,6 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     /* line-break: anywhere; */
-}
-
-.houses-check{
-  margin-top: 5px;
-  display: block;
-  left: 0;
 }
 
 .list{
